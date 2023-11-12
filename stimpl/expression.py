@@ -166,7 +166,7 @@ class Gt(BinaryOperator):
         super().__init__(left, right)
 
     def __repr__(self):
-        return f"{self.left} > {self.right}"
+        return f"{self.left} < {self.right}"
 
 
 class Gte(BinaryOperator):
@@ -174,7 +174,7 @@ class Gte(BinaryOperator):
         super().__init__(left, right)
 
     def __repr__(self):
-        return f"{self.left} >= {self.right}"
+        return f"{self.left} <= {self.right}"
 
 
 class Eq(BinaryOperator):
