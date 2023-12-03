@@ -157,7 +157,6 @@ def evaluate(expression: Expr, state: State) -> Tuple[Optional[Any], Type, State
             
 
         case Multiply(left=left, right=right):
-            """ TODO: Implement. """
             # Give default value 0 to the result of the operation.
             result = 0
             # Evaluate the parameter values for their values and types.
