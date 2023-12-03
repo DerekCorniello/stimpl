@@ -81,7 +81,6 @@ def evaluate(expression: Expr, state: State) -> Tuple[Optional[Any], Type, State
             return (printable_value, printable_type, new_state)
 
         case Sequence(exprs=exprs) | Program(exprs=exprs):
-            """ TODO: Implement. """
             # Start with a clean slate on value and type, keep the state the same
             variable_value = None
             variable_type = Unit()
@@ -136,7 +135,6 @@ def evaluate(expression: Expr, state: State) -> Tuple[Optional[Any], Type, State
             return (result, left_type, new_state)
 
         case Subtract(left=left, right=right):
-            """ TODO: Implement. """
             # Give default value 0 to the result of the operation.
             result = 0
             # Evaluate the parameter values for their values and types.
@@ -183,7 +181,6 @@ def evaluate(expression: Expr, state: State) -> Tuple[Optional[Any], Type, State
             return (result, left_type, new_state)
 
         case Divide(left=left, right=right):
-            """ TODO: Implement. """
             # Give default value 0 to the result of the operation.
             result = 0
             # Evaluate the parameter values for their values and types.
@@ -227,7 +224,6 @@ def evaluate(expression: Expr, state: State) -> Tuple[Optional[Any], Type, State
             return (result, left_type, new_state)
 
         case Or(left=left, right=right):
-            """ TODO: Implement. """
             # Evaluate for the type and value of the two parameters
             left_value, left_type, new_state = evaluate(left, state)
             right_value, right_type, new_state = evaluate(right, new_state)
@@ -248,7 +244,6 @@ def evaluate(expression: Expr, state: State) -> Tuple[Optional[Any], Type, State
             
 
         case Not(expr=expr):
-            """ TODO: Implement. """
             # Evaluate the expression for a boolean value
             variable_value, variable_type, new_state = evaluate(expr, state)
 
@@ -261,7 +256,6 @@ def evaluate(expression: Expr, state: State) -> Tuple[Optional[Any], Type, State
                     f"""Cannot perform 'Not' operator on type {variable_type}.""")
         
         case If(condition=condition, true=true, false=false):
-            """ TODO: Implement. """
             # Evaluate the condition first and ensure it is a boolean type.
             # If not, raise a type error
             variable_value, variable_type, new_state = evaluate(condition, state)            
@@ -301,7 +295,6 @@ def evaluate(expression: Expr, state: State) -> Tuple[Optional[Any], Type, State
             return (result, Boolean(), new_state)
 
         case Lte(left=left, right=right):
-            """ TODO: Implement. """
             # Evaluate the left and right operands for value and type
             left_value, left_type, new_state = evaluate(left, state)
             right_value, right_type, new_state = evaluate(right, new_state)
@@ -325,7 +318,6 @@ def evaluate(expression: Expr, state: State) -> Tuple[Optional[Any], Type, State
             
 
         case Gt(left=left, right=right):
-            """ TODO: Implement. """
             # Evaluate the left and right operands for value and type
             left_value, left_type, new_state = evaluate(left, state)
             right_value, right_type, new_state = evaluate(right, new_state)
@@ -349,7 +341,6 @@ def evaluate(expression: Expr, state: State) -> Tuple[Optional[Any], Type, State
             return (result, Boolean(), new_state)
 
         case Gte(left=left, right=right):
-            """ TODO: Implement. """
             # Evaluate the left and right operands for value and type
             left_value, left_type, new_state = evaluate(left, state)
             right_value, right_type, new_state = evaluate(right, new_state)
@@ -372,7 +363,6 @@ def evaluate(expression: Expr, state: State) -> Tuple[Optional[Any], Type, State
             return (result, Boolean(), new_state)
 
         case Eq(left=left, right=right):
-            """ TODO: Implement. """
             # Evaluate the left and right operands for value and type
             left_value, left_type, new_state = evaluate(left, state)
             right_value, right_type, new_state = evaluate(right, new_state)
@@ -388,7 +378,6 @@ def evaluate(expression: Expr, state: State) -> Tuple[Optional[Any], Type, State
             return ((left_value == right_value), Boolean(), new_state)        
 
         case Ne(left=left, right=right):
-            """ TODO: Implement. """
             # Evaluate the left and right operands for value and type
             left_value, left_type, new_state = evaluate(left, state)
             right_value, right_type, new_state = evaluate(right, new_state)
@@ -405,18 +394,15 @@ def evaluate(expression: Expr, state: State) -> Tuple[Optional[Any], Type, State
             
 
         case While(condition=condition, body=body):
-            """ TODO: Implement. """
             if_cond_value, if_cond_type, new_state = evaluate(condition, state)
-            result_value = None
             result_type = Unit()
-            new_state = state
 
             if if_cond_type != Boolean():
                 raise InterpTypeError(   
                     f"""Cannot evaluate condition with type {if_cond_type}""")
 
             while(if_cond_value):
-                result_value, result_type, new_state = evaluate(body, new_state)
+                _, result_type, new_state = evaluate(body, new_state)
                 if_cond_value, _, new_state = evaluate(condition, new_state)
 
             return (False, Boolean(), new_state)
