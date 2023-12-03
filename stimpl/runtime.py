@@ -23,7 +23,6 @@ class State(object):
         return State(variable_name, variable_value, variable_type, self)
 
     def get_value(self, variable_name) -> Any:
-        """ TODO: Implement. """
         if variable_name == self.variable_name:
             return self.value
         else:
